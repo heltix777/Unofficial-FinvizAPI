@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Finviz:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Finviz_jar</output-path>
+    <root id="archive" name="Finviz.jar">
+      <element id="module-output" name="Finviz" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../[Libraries]/jsoup/jsoup-1.13.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
