@@ -91,7 +91,6 @@ public class Stock {
      Retrieves stock symbol information from Finviz.
 
      @param symbol    Symbol of the company
-     @return Stock
      */
     public Stock(String symbol) {
         Document doc = getStockInfo(symbol);
@@ -176,7 +175,7 @@ public class Stock {
             this.sma200 = elements.get(69).text();
             this.volume = elements.get(70).text();
             this.change = elements.get(71).text();
-            this.companyInfo = doc.select("td.fullview-profile").get(0).text();
+            this.companyInfo = wrapText(doc.select("td.fullview-profile").get(0).text());
         } else {
             throw new IllegalArgumentException("This symbol cannot be found");
         }
@@ -498,6 +497,15 @@ public class Stock {
         return companyInfo;
     }
 
+    private String wrapText(String input) {
+        StringBuilder sb = new StringBuilder(input);
+        int i = 0;
+        while (i + 100 < sb.length() && (i = sb.lastIndexOf(" ", i + 100)) != -1) {
+            sb.replace(i, i + 1, "\n");
+        }
+        return sb.toString();
+    }
+
     private Document getStockInfo(String symbol) {
         try {
             return Jsoup.connect("https://finviz.com/quote.ashx?t=" + symbol).get();
@@ -514,6 +522,6 @@ public class Stock {
      */
     @Override
     public String toString() {
-        return "Symbol: " + symbol + "\nCompany Name: " + companyName + "\nSector: " + sector + "\nIndustry: " + industry + "\nGeo: " + geo + "\nIndex: " + index + "\nP/E: " + pe + "\nEPS: " + eps + "\nInsider Ownership: " + insiderOwn + "\nShares Outstanding: " + shsOutstand + "\nPerf Week: " + perfWeek + "\nMarket Cap: " + marketCap + "\nForward P/E: " + forwardPE + "\nEPS Next Y: " + epsNextY + "\nInsider Trans: " + insiderTrans + "\nShares Float: " + shsFloat + "\nPerf Month: " + perfMonth + "\nIncome: " + income + "\nPEG: " + peg + "\nEPS Next Quarter: " + epsNextQ + "\nInstitutional Ownership: " + instOwn + "\nShort Float: " + shortFloat + "\nPerf Quarter: " + perfQuarter + "\nSales: " + sales + "\nPS: " + ps + "\nEPS This Year %: " + epsThisYPercent + "\nInstitutional Trans: " + instTrans + "\nShort Ratio: " + shortRatio + "\nPerf Half Y: " + perfHalfY + "\nBook/Share: " + bookSh + "\nP/B: " + pb + "\nEPS Next Y %: " + epsNextYPercent + "\nROA: " + roa + "\nTarget Price: " + targetPrice + "\nPerf Year: " + perfYear + "\nCash/Share: " + cashSh + "\nP/C: " + pc + "\nEPS Next 5 Year %: " + epsNext5YPercent + "\nROE: " + roe + "\n52 Week Range: " + w52Range + "\nPerf YTD: " + perfYTD + "\nDividend: " + dividend + "\nP/FCF: " + pfcf + "\nEPS Past 5 Y %: " + epsPast5YPercent + "\nROI: " + roi + "\n52 Week High: " + w52High + "\nBeta: " + beta + "\nDividend %: " + dividendPercent + "\nQuick Ratio: " + quickRatio + "\nSales Past 5 Y: " + salesPast5Y + "\nGross Margin: " + grossMargin + "\n52 Week Low: " + w52Low + "\nATR (14): " + atr + "\nEmployees: " + employees + "\nCurrent Ratio: " + currentRatio + "\nSales Q/Q: " + salesQQ + "\nOperating Margin: " + operMargin + "\nRSI (14): " + rsi14 + "\nVolatility: " + volatility + "\nOptionable: " + optionable + "\nDebt/Eq: " + debtEq + "\nEPS Q/Q: " + epsQQ + "\nProfit Margin: " + profitMargin + "\nRel Volume: " + relVolume + "\nPrevious Close: " + prevClose + "\nShortable: " + shortable + "\nLT Debt/Eq: " + ltDebtEq + "\nEarnings: " + earnings + "\nPayout: " + payout + "\nAvg Volume: " + avgVolume + "\nPrice: " + price + "\nRecome: " + recom + "\nSMA20: " + sma20 + "\nSMA50: " + sma50 + "\nSMA200: " + sma200 + "\nVolume: " + volume + "\nChange: " + change + "\n\nCompany Info: " + companyInfo;
+        return "Symbol: " + symbol + "\nCompany Name: " + companyName + "\nSector: " + sector + "\nIndustry: " + industry + "\nGeo: " + geo + "\nIndex: " + index + "\nP/E: " + pe + "\nEPS: " + eps + "\nInsider Ownership: " + insiderOwn + "\nShares Outstanding: " + shsOutstand + "\nPerf Week: " + perfWeek + "\nMarket Cap: " + marketCap + "\nForward P/E: " + forwardPE + "\nEPS Next Y: " + epsNextY + "\nInsider Trans: " + insiderTrans + "\nShares Float: " + shsFloat + "\nPerf Month: " + perfMonth + "\nIncome: " + income + "\nPEG: " + peg + "\nEPS Next Quarter: " + epsNextQ + "\nInstitutional Ownership: " + instOwn + "\nShort Float: " + shortFloat + "\nPerf Quarter: " + perfQuarter + "\nSales: " + sales + "\nPS: " + ps + "\nEPS This Year %: " + epsThisYPercent + "\nInstitutional Trans: " + instTrans + "\nShort Ratio: " + shortRatio + "\nPerf Half Y: " + perfHalfY + "\nBook/Share: " + bookSh + "\nP/B: " + pb + "\nEPS Next Y %: " + epsNextYPercent + "\nROA: " + roa + "\nTarget Price: " + targetPrice + "\nPerf Year: " + perfYear + "\nCash/Share: " + cashSh + "\nP/C: " + pc + "\nEPS Next 5 Year %: " + epsNext5YPercent + "\nROE: " + roe + "\n52 Week Range: " + w52Range + "\nPerf YTD: " + perfYTD + "\nDividend: " + dividend + "\nP/FCF: " + pfcf + "\nEPS Past 5 Y %: " + epsPast5YPercent + "\nROI: " + roi + "\n52 Week High: " + w52High + "\nBeta: " + beta + "\nDividend %: " + dividendPercent + "\nQuick Ratio: " + quickRatio + "\nSales Past 5 Y: " + salesPast5Y + "\nGross Margin: " + grossMargin + "\n52 Week Low: " + w52Low + "\nATR (14): " + atr + "\nEmployees: " + employees + "\nCurrent Ratio: " + currentRatio + "\nSales Q/Q: " + salesQQ + "\nOperating Margin: " + operMargin + "\nRSI (14): " + rsi14 + "\nVolatility: " + volatility + "\nOptionable: " + optionable + "\nDebt/Eq: " + debtEq + "\nEPS Q/Q: " + epsQQ + "\nProfit Margin: " + profitMargin + "\nRel Volume: " + relVolume + "\nPrevious Close: " + prevClose + "\nShortable: " + shortable + "\nLT Debt/Eq: " + ltDebtEq + "\nEarnings: " + earnings + "\nPayout: " + payout + "\nAvg Volume: " + avgVolume + "\nPrice: " + price + "\nRecome: " + recom + "\nSMA20: " + sma20 + "\nSMA50: " + sma50 + "\nSMA200: " + sma200 + "\nVolume: " + volume + "\nChange: " + change + "\n\nCompany Info: \n" + companyInfo;
     }
 }
